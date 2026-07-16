@@ -45,6 +45,7 @@ import AdminDashboard from './components/AdminDashboard';
 import ScripturePage from './components/ScripturePage';
 import MemberPortal from './components/MemberPortal';
 import BirthDatePicker from './components/BirthDatePicker';
+import { BeadCurtainMenu } from './components/BeadCurtainMenu';
 
 // ── 工具函式 ────────────────────────────────────────────────────────────────────
 
@@ -644,44 +645,14 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <div className="hidden lg:flex items-center gap-1">
-              {['home', 'about', 'deities', 'booking', 'lamps', 'blessing', 'donation'].map((item) => (
-                <button
-                  key={item}
-                  onClick={() => scrollToSection(item)}
-                  className={`relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 font-serif whitespace-nowrap
-                    ${activeSection === item
-                      ? 'bg-temple-gold/15 text-temple-red font-semibold'
-                      : 'text-[#3D2800] hover:bg-[#C49820]/10 hover:text-temple-red'}`}
-                >
-                  {{
-                    'home': '首頁',
-                    'about': '緣起',
-                    'deities': '神明',
-                    'lamps': '點燈',
-                    'blessing': '祈福',
-                    'donation': '捐獻',
-                    'booking': '問事',
-                  }[item]}
-                  {activeSection === item && (
-                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-temple-gold rounded-full" />
-                  )}
-                </button>
-              ))}
-              <button
-                onClick={() => setShowScripture(true)}
-                className="relative px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200 font-serif whitespace-nowrap text-temple-red/80 hover:bg-temple-red/10 hover:text-temple-red border border-temple-red/30"
-              >
-                聖母經
-              </button>
-              <div className="w-px h-6 bg-[#3D2800]/20 mx-1" />
-              <button
-                onClick={() => setShowMemberPortal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-bold bg-temple-red text-white shadow-md hover:bg-[#5C1A04] hover:shadow-lg hover:scale-105 transition-all duration-200"
-              >
-                <UserIcon className="w-4 h-4" />
-                {member ? '會員中心' : '登入 / 註冊'}
-              </button>
+            <div className="pointer-events-auto absolute left-1/2 top-0 hidden h-20 -translate-x-1/2 items-start justify-center lg:flex">
+              <BeadCurtainMenu
+                activeSection={activeSection}
+                onMenuItemClick={scrollToSection}
+                onScriptureClick={() => setShowScripture(true)}
+                onMemberClick={() => setShowMemberPortal(true)}
+                memberLabel={member ? '會員中心' : '登入 / 註冊'}
+              />
             </div>
 
             <div className="-mr-2 flex lg:hidden">
